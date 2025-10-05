@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Product Movements</h2>
+
+<div class="form-container">
+<form method="POST">
+    {{ form.hidden_tag() }}
+    {{ form.movement_id.label }} {{ form.movement_id() }}<br>
+    {{ form.product.label }} {{ form.product() }}<br>
+    {{ form.from_location.label }} {{ form.from_location() }}<br>
+    {{ form.to_location.label }} {{ form.to_location() }}<br>
+    {{ form.qty.label }} {{ form.qty() }}<br>
+    {{ form.submit(class="btn") }}
+</form>
+</div>
+
+<hr>
+
+<table>
+<tr>
+    <th>Movement ID</th><th>Timestamp</th><th>Product</th><th>From Location</th><th>To Location</th><th>Qty</th>
+</tr>
+{% for m in movements %}
+<tr>
+    <td>{{ m.movement_id }}</td>
+    <td>{{ m.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+    <td>{{ m.product_id }}</td>
+    <td>{{ m.from_location or '---' }}</td>
+    <td>{{ m.to_location or '---' }}</td>
+    <td>{{ m.qty }}</td>
+</tr>
+{% endfor %}
+</table>
+
+{% endblock %}
